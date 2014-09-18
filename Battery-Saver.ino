@@ -196,26 +196,32 @@ void loop() {
 #endif  
 
 
-    
-    if (light > 400 || voltage > 13.0) {
+/*
+   The objective of this section is to switch the relays on and off depending
+   on voltage. There is a gap between the turn-on and turn-off points so as
+   to avoid flapping between the two states when close, as the voltage will
+   read higher when there is no load connected compared to when there is.
+*/
+
+    if (light > 400 || voltage > 12.9) {
         // ie. We're charging, so there's lots of sun
         // So disable the lighting relay.
         flash_one_led(greenled);
         disable_relay(outputPinA);
         enable_relay(outputPinB);
     }
-    else if (voltage > 12.0) {
+    else if (voltage > 12.3) {
         enable_one_led(greenled);
         enable_relay(outputPinA);
         enable_relay(outputPinB);
     }
-    else if (voltage < 11.4) {
+    else if (voltage < 11.8) {
         flash_one_led(redled);
         disable_relay(outputPinA);
         disable_relay(outputPinB);
     }
     else {
-        // between 11.5 and 12.0:
+        // between 11.8 and 12.3:
         enable_one_led(redled);
     }
 
