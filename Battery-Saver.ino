@@ -232,11 +232,12 @@ void loop() {
     }
     else {
 #ifdef TCDEBUG
-        Serial.println("entering slow sleep");
-        Serial.flush();
-#endif
+        Serial.println("pausing");
+        delay(2000);
+#else
         lpDelay(20);
         //enterSleep();
+#endif
     }
 }
 
